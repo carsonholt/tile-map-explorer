@@ -1,10 +1,11 @@
 import Input from './input';
-
+import tilemapdata from "./suburb.json";
+import Phaser from "./phaser";
 /** @class Game
   * A class representing the high-level functionality
   * of a game - the game loop, buffer swapping, etc.
-  */
-export default class Game {
+  */  
+export default class Game { 
   /** @constructor
     * Creates the game instance
     * @param {integer} width - the width of the game screen in pixels
@@ -30,6 +31,7 @@ export default class Game {
     this.screenBufferCtx = this.screenBuffer.getContext('2d');
     document.body.append(this.screenBuffer);
   }
+
   /** @method addEntity
     * Adds an entity to the game world
     * Entities should have an update() and render()
@@ -51,6 +53,7 @@ export default class Game {
     // Swap input buffers
     this.input.update();
   }
+  
   /** @method render
     * Renders the game state
     * @param {integer} elapsedTime - the number of milliseconds per frame
@@ -61,13 +64,15 @@ export default class Game {
     this.backBufferCtx.fillRect(0,0,this.WIDTH, this.HEIGHT);
 
     // TODO: Render game
-
+	
+	
     // Render entities
     this.entities.forEach(entity => entity.render(elapsedTime, this.backBufferCtx));
 
     // Flip the back buffer
     this.screenBufferCtx.drawImage(this.backBuffer, 0, 0);
   }
+  
   /** @method loop
     * Updates and renders the game,
     * and calls itself on the next draw cycle.

@@ -1,5 +1,6 @@
 import Game from './game';
 import Player from './player';
+import Phaser from './phaser.min';
 
 // Create the game
 var game = new Game(1024, 768);
