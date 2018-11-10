@@ -1,6 +1,8 @@
 import Input from './input';
-import tilemapdata from "./suburb.json";
-import Phaser from "./phaser";
+import tilemapdata from "./assets/suburb.json";
+//import Phaser from "./phaser";
+//import PhaserMin from "./phaser.min";
+
 /** @class Game
   * A class representing the high-level functionality
   * of a game - the game loop, buffer swapping, etc.
@@ -54,17 +56,32 @@ export default class Game {
     this.input.update();
   }
   
+  drawTile(tile, x, y) {
+	  if (tile == 2) {
+		//draw grass
+		var img = new Image();
+		img.src = '/grass.png';
+		this.backBufferCtx.drawImage(img, 0, 0, 32, 32, x, y, 32, 32);
+	  }
+  }
+  
   /** @method render
     * Renders the game state
     * @param {integer} elapsedTime - the number of milliseconds per frame
     */
   render(elapsedTime) {
     // Clear the back buffer
-    this.backBufferCtx.fillStyle = "white";
+    this.backBufferCtx.fillStyle = "black";
     this.backBufferCtx.fillRect(0,0,this.WIDTH, this.HEIGHT);
 
     // TODO: Render game
-	
+	//var length = tilemapdata.layers[0].chunks.length;
+	for (var i = 0; i < tilemapdata.layers[0].chunks.length; i++) {
+		for (var j = 0; j < tilemapdata.layers[0].chunks[i].data.length; j++) {		
+			var tile = tilemapdata.layers[0].chunks[i].data[j];
+			this.drawTile(tile, tilemapdata.layers[0].chunks[i].x + (16 * j), tilemapdata.layers[0].chunks[i].y + (16 * j));
+		}
+	}
 	
     // Render entities
     this.entities.forEach(entity => entity.render(elapsedTime, this.backBufferCtx));

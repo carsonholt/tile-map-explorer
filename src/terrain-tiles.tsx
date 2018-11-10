@@ -5,12 +5,12 @@
   <terrain name="New Terrain" tile="-1"/>
  </terraintypes>
  <tile id="0">
-  <image width="32" height="32" source="../../../../Sprites/tiles/grass.png"/>
+  <image width="32" height="32" source="grass.png"/>
  </tile>
  <tile id="1">
-  <image width="32" height="32" source="../../../../Sprites/tiles/sidewalk.png"/>
+  <image width="32" height="32" source="sidewalk.png"/>
  </tile>
  <tile id="2">
-  <image width="32" height="32" source="../../../../Sprites/tiles/street.png"/>
+  <image width="32" height="32" source="street.png"/>
  </tile>
 </tileset>

@@ -9,21 +9,21 @@ var config = {
         create: create,
     }
 };
-var game = new Phaser.Game(config);
 
-function preload() {
-	game.load.tilemap("map","assets/suburb.json",null,Phaser.Tilemap.TILED_JSON);
-	game.load.image("houseTiles","assets/house-exteriors.tsx");
-	game.load.image("terrainTiles","assets/terrain-tiles.tsx");
-}
-  
+var game = new Phaser.Game(config);
 var map;
 var layer;
 
+function preload() {
+	game.load.tilemap("map","assets/suburb.json",null,Phaser.Tilemap.TILED_JSON);
+	game.load.image("houseTiles","assets/house-exteriors.json");
+	game.load.image("terrainTiles","assets/terrain-tiles.json");
+}
+
 function create(){
     map = game.add.tilemap("map");
-    map.addTilesetImage("terrain-tiles","terrainTiles");
-	map.addTilesetImage("house-exteriors", "houseTiles");
+    map.addTilesetImage("terrainTiles",terrainTiles);
+	map.addTilesetImage("houseTiles", houseTiles);
     layer = map.createLayer("GroundLayer");
 	//this.layerBackground = this.map.createLayer('Background');
     layer.resizeWorld();
