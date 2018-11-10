@@ -8,6 +8,8 @@ export default class Player {
     * @param {float} y - the player's y position
     */
   constructor(x, y) {
+	this.img = new Image();
+	this.img.src = "player-front.png";
     this.x = x;
     this.y = y;
   }
@@ -18,10 +20,22 @@ export default class Player {
     * @param {Input} input - the input object
     */
   update(deltaT, input) {
-    if(input.keyPressed("ArrowLeft")) this.x--;
-    if(input.keyPressed("ArrowRight")) this.x++;
-    if(input.keyPressed("ArrowUp")) this.y--;
-    if(input.keyPressed("ArrowDown")) this.y++;
+    if(input.keyPressed("ArrowLeft")) {
+		this.x--;
+		
+	}
+    if(input.keyPressed("ArrowRight")) {
+		this.x++;
+		
+	}
+    if(input.keyPressed("ArrowUp")) {
+		this.y--;
+		this.img.src = "player-back.png";
+	}
+    if(input.keyPressed("ArrowDown")) {
+		this.y++;
+		this.img.src = "player-front.png";
+	}
   }
 
   /** @method render
@@ -30,10 +44,7 @@ export default class Player {
     * @param {Context2D} context - the rendering context
     */
   render(deltaT, context) {
-    context.fillStyle = "blue";
-    context.beginPath();
-    context.arc(this.x, this.y, 25, 0, 2*Math.PI);
-    context.fill();
+	context.drawImage(this.img, this.x, this.y);
   }
 
 }

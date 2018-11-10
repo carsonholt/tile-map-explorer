@@ -1,5 +1,5 @@
 import Input from './input';
-import tilemapdata from "./assets/suburb.json";
+import map from "./assets/suburb.json";
 //import Phaser from "./phaser";
 //import PhaserMin from "./phaser.min";
 
@@ -57,10 +57,20 @@ export default class Game {
   }
   
   drawTile(tile, x, y) {
-	  if (tile == 2) {
+	  if (tile == 1) {
 		//draw grass
 		var img = new Image();
 		img.src = '/grass.png';
+		this.backBufferCtx.drawImage(img, 0, 0, 32, 32, x, y, 32, 32);
+	  } else if (tile == 2) {
+		  //draw sidewalk
+		var img = new Image();
+		img.src = '/sidewalk.png';
+		this.backBufferCtx.drawImage(img, 0, 0, 32, 32, x, y, 32, 32);
+	  } else if (tile == 3) {
+		  //draw street
+		var img = new Image();
+		img.src = '/street.png';
 		this.backBufferCtx.drawImage(img, 0, 0, 32, 32, x, y, 32, 32);
 	  }
   }
@@ -71,15 +81,18 @@ export default class Game {
     */
   render(elapsedTime) {
     // Clear the back buffer
-    this.backBufferCtx.fillStyle = "black";
+    this.backBufferCtx.fillStyle = "white";
     this.backBufferCtx.fillRect(0,0,this.WIDTH, this.HEIGHT);
 
     // TODO: Render game
-	//var length = tilemapdata.layers[0].chunks.length;
-	for (var i = 0; i < tilemapdata.layers[0].chunks.length; i++) {
-		for (var j = 0; j < tilemapdata.layers[0].chunks[i].data.length; j++) {		
-			var tile = tilemapdata.layers[0].chunks[i].data[j];
-			this.drawTile(tile, tilemapdata.layers[0].chunks[i].x + (16 * j), tilemapdata.layers[0].chunks[i].y + (16 * j));
+	for (var i = 0; i < map.layers[0].chunks.length; i++) {
+		var k = 0;
+		for (var r = 0; r < map.layers[0].chunks[i].data.length; r++) {		
+			for (var c = 0; c < map.layers[0].chunks[i].data.length; c++) {
+				var tile = map.layers[0].chunks[i].data[k];
+				this.drawTile(tile, (map.layers[0].chunks[i].x * 16) - (16 * r) + (16 * c) + (56 * 16), (map.layers[0].chunks[i].y * 16) - (16 * r) + (16 * c) - 256 );
+				k++;
+			}
 		}
 	}
 	
@@ -89,7 +102,7 @@ export default class Game {
     // Flip the back buffer
     this.screenBufferCtx.drawImage(this.backBuffer, 0, 0);
   }
-  
+
   /** @method loop
     * Updates and renders the game,
     * and calls itself on the next draw cycle.
