@@ -22,11 +22,11 @@ export default class Player {
   update(deltaT, input) {
     if(input.keyPressed("ArrowLeft")) {
 		this.x--;
-		
+		this.img.src = "player-left.png";
 	}
     if(input.keyPressed("ArrowRight")) {
 		this.x++;
-		
+		this.img.src = "player-right.png";
 	}
     if(input.keyPressed("ArrowUp")) {
 		this.y--;

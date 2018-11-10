@@ -1,7 +1,6 @@
 import Input from './input';
 import map from "./assets/suburb.json";
-//import Phaser from "./phaser";
-//import PhaserMin from "./phaser.min";
+import Camera from "./camera";
 
 /** @class Game
   * A class representing the high-level functionality
@@ -32,6 +31,9 @@ export default class Game {
     this.screenBuffer.height = this.HEIGHT;
     this.screenBufferCtx = this.screenBuffer.getContext('2d');
     document.body.append(this.screenBuffer);
+	
+	// Set up camera
+	this.camera = new Camera(map, 1024, 768);
   }
 
   /** @method addEntity
@@ -90,7 +92,7 @@ export default class Game {
 		for (var r = 0; r < map.layers[0].chunks[i].data.length; r++) {		
 			for (var c = 0; c < map.layers[0].chunks[i].data.length; c++) {
 				var tile = map.layers[0].chunks[i].data[k];
-				this.drawTile(tile, (map.layers[0].chunks[i].x * 16) - (16 * r) + (16 * c) + (56 * 16), (map.layers[0].chunks[i].y * 16) - (16 * r) + (16 * c) - 256 );
+				this.drawTile(tile, (map.layers[0].chunks[i].x * 16) + (16 * r) + (16 * c) + (88 * 16), (map.layers[0].chunks[i].y * 16) + (16 * r) + (16 * c) - 512 );
 				k++;
 			}
 		}
